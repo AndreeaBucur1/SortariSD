@@ -1,31 +1,34 @@
+import time
 
-f=open("file.txt")
-def readNumbers(f):
+import random
+def generator(n,maxim):
+    rlist=[]
+    for i in range(n):
+        nrand=random.randint(0,maxim+1)
+        rlist.append(nrand)
+    return rlist
 
-    l = []
-    for x in f.readlines():
-        x = x.strip('\n').split()
-        l.append(x)
-    k = []
-    for i in l:
-        for j in i:
-            k.append(int(j))
-    return k
+n=int(input("Cate numere?"))
+m=int(input("Maximul nr"))
 
-v1=v2=v3=v4=v5=readNumbers(f)
+
+v1=v2=v3=v4=v5=generator(n,m)
+
+
 #COUNTSORT:
-
+s=time.time()
 def CountSort(v):
-    count = [0 for i in range(max(v) + 1)]
-    for i in range(len(v)):
-        count[v[i]] = v.count(v[i])
-    mini=min(v)
-    maxi=max(v)
-    v=[]
-    for i in range(mini, maxi + 1):
-        while count[i] > 0:
-            v.append(i)
-            count[i] = count[i] - 1
+    if max(v)<1000000:
+        count = [0 for i in range(max(v) + 1)]
+        for i in range(len(v)):
+            count[v[i]] = v.count(v[i])
+        mini=min(v)
+        maxi=max(v)
+        v=[]
+        for i in range(mini, maxi + 1):
+            while count[i] > 0:
+                v.append(i)
+                count[i] = count[i] - 1
     return v
 
 def verificare(v):
@@ -38,8 +41,10 @@ def verificare(v):
 
 v1=CountSort(v1)
 
-if(verificare(v1)==1):
-    print("Count sort correct")
+if(verificare(v1)==1 and max(v1)<1000000):
+    print("Count sort correct",time.time()-s)
+elif max(v1)>1000000:
+    print("Maxim prea mare")
 else:
     print("Count sort incorrect")
 
@@ -55,13 +60,15 @@ else:
 
 #BUBBLESORT:
 
+s1=time.time()
 def BubbleSort(v):
-    for i in range(len(v)):
-        for j in range(0, len(v) - i - 1):
-            if v[j] > v[j + 1]:
-                aux=v[j]
-                v[j]=v[j+1]
-                v[j+1]=aux
+    if len(v)<3000:
+        for i in range(len(v)):
+            for j in range(0, len(v) - i - 1):
+                if v[j] > v[j + 1]:
+                    aux=v[j]
+                    v[j]=v[j+1]
+                    v[j+1]=aux
     return v
 
 def verificare(v):
@@ -75,10 +82,12 @@ def verificare(v):
 
 v2=BubbleSort(v2)
 
-if(verificare(v2)==1):
-    print("Bubble sort correct")
+if(verificare(v2)==1 and len(v2)<3000):
+    print("Bubble sort correct",time.time()-s1)
+elif len(v2)>3000:
+    print("Prea multe elemente")
 else:
-    print("Bubble sort incorrect")
+    print("Bubble sort incorect")
 
 
 
@@ -92,6 +101,7 @@ else:
 
 #MergeSort:
 
+s2=time.time()
 def MergeSort(v):
     if len(v) > 1:
         mid = len(v) // 2
@@ -134,7 +144,7 @@ def MergeSort(v):
 
 v3=MergeSort(v3)
 if(verificare(v3)==1):
-    print("Merge sort correct")
+    print("Merge sort correct",time.time()-s2)
 else:
     print("Merge sort incorrect")
 
@@ -149,6 +159,7 @@ else:
 
 #QUICKSORT:
 
+s3=time.time()
 def quicksort(v):
     if len(v) == 1 or len(v) == 0:
         return v
@@ -178,7 +189,7 @@ def readNumbers(f):
     return k
 
 if(verificare(v4)==1):
-    print("Quick sort correct")
+    print("Quick sort correct",time.time()-s3)
 else:
     print("Quick sort incorrect")
 
@@ -187,12 +198,9 @@ else:
 
 
 
-
-
-
-
 #RadixSort:
 
+s4=time.time()
 def countingSort(v, place):
     n = len(av)
     output = [0] * n
@@ -224,7 +232,7 @@ def radixSort(array):
         place *= 10
 
 if(verificare(v5)==1):
-    print("Radix sort correct")
+    print("Radix sort correct",time.time()-s4,)
 else:
     print("Radix sort incorrect")
 
