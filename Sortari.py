@@ -18,7 +18,8 @@ v1=v2=v3=v4=v5=generator(n,m)
 #COUNTSORT:
 s=time.time()
 def CountSort(v):
-    if max(v)<1000000:
+
+    if len(v)<=10000 and max(v)<=10000:
         count = [0 for i in range(max(v) + 1)]
         for i in range(len(v)):
             count[v[i]] = v.count(v[i])
@@ -41,12 +42,14 @@ def verificare(v):
 
 v1=CountSort(v1)
 
-if(verificare(v1)==1 and max(v1)<1000000):
+if(verificare(v1)==1):
     print("Count sort correct",time.time()-s)
-elif max(v1)>1000000:
+elif max(v1)>10000:
     print("Maxim prea mare")
+elif len(v1)>10000:
+    print("Prea multe numere")
 else:
-    print("Count sort incorrect")
+    print("Count sort incorrect",time.time()-s)
 
 
 
@@ -85,7 +88,7 @@ v2=BubbleSort(v2)
 if(verificare(v2)==1 and len(v2)<3000):
     print("Bubble sort correct",time.time()-s1)
 elif len(v2)>3000:
-    print("Prea multe elemente")
+    print("Prea multe numere")
 else:
     print("Bubble sort incorect")
 
@@ -202,7 +205,7 @@ else:
 
 s4=time.time()
 def countingSort(v, place):
-    n = len(av)
+    n = len(v)
     output = [0] * n
     count = [0] * 10
 
@@ -216,19 +219,19 @@ def countingSort(v, place):
     i = n  - 1
     while i >= 0:
         index = v[i]
-        output[count[index % 10] - 1] = array[i]
+        output[count[index % 10] - 1] = v[i]
         count[index % 10] -= 1
         i -= 1
 
     for i in range(0, size):
-        array[i] = output[i]
+        v[i] = output[i]
 
 
-def radixSort(array):
-    max_element = max(array)
+def radixSort(v):
+    max_element = max(v)
     place = 1
     while max_element // place > 0:
-        countingSort(array, place)
+        countingSort(v, place)
         place *= 10
 
 if(verificare(v5)==1):
